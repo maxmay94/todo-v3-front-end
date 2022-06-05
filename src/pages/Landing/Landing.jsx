@@ -8,6 +8,9 @@ import Todo from "../../components/Todo/Todo"
 
 const Landing = ({ user }) => {
   let [todos, setTodos] = useState([{}])
+  let [newTodo, setNewTodo] = useState({})
+
+  console.log(newTodo)
 
   useEffect(() => {
     const fetchData = async() => {
@@ -37,11 +40,12 @@ const Landing = ({ user }) => {
     }
   }
 
-  const handleCreateTodo = async(todo) => {
+  const handleCreateTodo = async() => {
     try {
-      await createTodo(todo)
+      await createTodo(newTodo)
       const data = await getAllTodos()
       setTodos(data)
+      setNewTodo('')
     } catch(err) {
       throw err
     }
@@ -50,7 +54,7 @@ const Landing = ({ user }) => {
   return (
     <main className=''>
       <h1 className="font-bold text-center text-3xl mt-5 ">What are we doing today?</h1>
-      <NewTodo createTodo={handleCreateTodo}/>
+      <NewTodo createTodo={handleCreateTodo} newTodo={newTodo} setNewTodo={setNewTodo} />
       {
         todos &&
         todos?.map((todo, i) => (
