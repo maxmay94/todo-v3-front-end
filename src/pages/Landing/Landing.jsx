@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 
-import { getAllTodos, doTodo, deleteTodo, createTodo } from "../../services/todoService" 
+import { getAllTodos, doTodo, deleteTodo, createTodo, updateTodo } from "../../services/todoService" 
 
 import NewTodo from "../../components/NewTodo/NewTodo"
 import Todo from "../../components/Todo/Todo"
@@ -9,6 +9,7 @@ import Todo from "../../components/Todo/Todo"
 const Landing = ({ user }) => {
   let [todos, setTodos] = useState([{}])
   let [newTodo, setNewTodo] = useState('')
+  let [newTitle, setNewTitle] = useState('')
 
   useEffect(() => {
     const fetchData = async() => {
@@ -49,6 +50,17 @@ const Landing = ({ user }) => {
     }
   }
 
+  const handleUpdateTodo = async(todo, newTitle) => {
+    try {
+      await(updateTodo(todo, newTitle))
+      const data = await getAllTodos()
+      setTodos(data)
+      setNewTitle('')
+    } catch(err) {
+      throw err
+    }
+  }
+
   return (
     <main className=''>
       <h1 className="font-bold text-center text-3xl mt-5 ">What are we doing today?</h1>
@@ -57,7 +69,14 @@ const Landing = ({ user }) => {
         todos &&
         todos?.map((todo, i) => (
           <div key={i}>
-            <Todo todo={todo} doTodo={handleDoTodo} deleteTodo={handleDeleteTodo}/>
+            <Todo 
+              todo={todo} 
+              doTodo={handleDoTodo} 
+              deleteTodo={handleDeleteTodo}
+              updateTodo={handleUpdateTodo}
+              newTitle={newTitle}
+              setNewTitle={setNewTitle}
+            />
           </div>
         ))
       }

@@ -55,6 +55,8 @@ export const doTodo = async(todoId) => {
 }
 
 export const updateTodo = async(todoId, title) => {
+  console.log('new title -->',title)
+  console.log('todoId --> ', todoId)
   try {
     const res = await fetch(`${BASE_URL}/${todoId}`, {
       method: 'PATCH',
