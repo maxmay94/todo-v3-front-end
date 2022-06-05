@@ -26,7 +26,6 @@ export const createTodo = async(todo) => {
       })
     })
     const data = await res.json()
-    console.log('new todo --> ', data)
     return data
   } catch(err) {
     throw err
@@ -55,8 +54,6 @@ export const doTodo = async(todoId) => {
 }
 
 export const updateTodo = async(todoId, title) => {
-  console.log('new title -->',title)
-  console.log('todoId --> ', todoId)
   try {
     const res = await fetch(`${BASE_URL}/${todoId}`, {
       method: 'PATCH',
@@ -69,7 +66,6 @@ export const updateTodo = async(todoId, title) => {
       })
     })
     const data = await res.json()
-    console.log(data)
     return data
   } catch(err) {
     throw err
