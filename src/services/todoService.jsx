@@ -6,42 +6,68 @@ export const getAllTodos = async() => {
   try {
     const res = await fetch(BASE_URL)
     const data = await res.json()
-    console.log(data)
     return data
   } catch(err) {
     throw err
   }
 }
 
-export const createTodo = async() => {
+export const createTodo = async(todo) => {
   try {
-
+    const res = await fetch(`${BASE_URL}`,{
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${tokenService.getToken()}`
+      },
+      body: JSON.stringify({
+        title: todo,
+        completed: false
+      })
+    })
+    const data = await res.json()
+    return data
   } catch(err) {
     throw err
   }
 }
 
-export const deleteTodo = async(id) => {
+export const deleteTodo = async(todoId) => {
   try {
-
-  } catch(err) {
-    throw err
-  }
-}
-
-export const doTodo = async(id) => {
-  try {
-    await fetch(`${BASE_URL}/done`, {
-      method: 'PATCH',
+    await fetch(`${BASE_URL}/${todoId}`,{
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${tokenService.getToken()}` }
     })
   } catch(err) {
     throw err
   }
 }
 
-export const updateTodo = async(id, todo) => {
+export const doTodo = async(todoId) => {
   try {
+    await fetch(`${BASE_URL}/${todoId}/done`, {
+      method: 'PATCH'
+    })
+  } catch(err) {
+    throw err
+  }
+}
 
+export const updateTodo = async(todoId, title) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${todoId}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${tokenService.getToken()}`
+      },
+      body: JSON.stringify({
+        title: title,
+      })
+    })
+    const data = await res.json()
+    console.log(data)
+    return data
   } catch(err) {
     throw err
   }

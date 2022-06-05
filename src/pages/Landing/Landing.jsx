@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 
-import { getAllTodos, doTodo } from "../../services/todoService" 
+import { getAllTodos, doTodo, deleteTodo, createTodo } from "../../services/todoService" 
 
 import NewTodo from "../../components/NewTodo/NewTodo"
 import Todo from "../../components/Todo/Todo"
@@ -27,15 +27,35 @@ const Landing = ({ user }) => {
     }
   }
 
+  const handleDeleteTodo = async(todoId) => {
+    try {
+      await deleteTodo(todoId)
+      const data = await getAllTodos()
+      setTodos(data)
+    } catch(err) {
+      throw err
+    }
+  }
+
+  const handleCreateTodo = async(todo) => {
+    try {
+      await createTodo(todo)
+      const data = await getAllTodos()
+      setTodos(data)
+    } catch(err) {
+      throw err
+    }
+  }
+
   return (
     <main className=''>
-      <NewTodo />
-
+      <h1 className="font-bold text-center text-3xl mt-5 ">What are we doing today?</h1>
+      <NewTodo createTodo={handleCreateTodo}/>
       {
         todos &&
         todos?.map((todo, i) => (
           <div key={i}>
-            <Todo todo={todo} doTodo={handleDoTodo}/>
+            <Todo todo={todo} doTodo={handleDoTodo} deleteTodo={handleDeleteTodo}/>
           </div>
         ))
       }
