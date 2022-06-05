@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 
 const NewTodo = (props) => {
   return (
@@ -6,7 +6,8 @@ const NewTodo = (props) => {
       <input 
         className="w-full rounded" 
         type="text" 
-        placeholder="TODO: "
+        value={props.newTodo}
+        placeholder="TODO:"
         onChange={(e) => props.setNewTodo(e.target.value)}
       />
 
@@ -16,7 +17,6 @@ const NewTodo = (props) => {
       >
         Add To-do
       </button>
-
     </div>
   )
 }

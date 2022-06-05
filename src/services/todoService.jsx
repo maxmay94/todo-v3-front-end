@@ -13,7 +13,6 @@ export const getAllTodos = async() => {
 }
 
 export const createTodo = async(todo) => {
-  console.log(':::',todo)
   try {
     const res = await fetch(`${BASE_URL}`,{
       method: 'POST',

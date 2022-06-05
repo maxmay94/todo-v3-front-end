@@ -7,7 +7,7 @@ const NavBar = ({ user, handleLogout }) => {
         <nav>
           <ul className='flex'>
             <li className='flex-1 ml-5'>Welcome, {user.name}</li>
-            <li className='flex-1 ml-5'><Link to="" onClick={handleLogout}>LOG OUT</Link></li>
+            <li className='flex-1 ml-10'><Link to="" onClick={handleLogout}>LOG OUT</Link></li>
             <li className='mr-5'><Link to="/changePassword">Change Password</Link></li>
           </ul>
         </nav>

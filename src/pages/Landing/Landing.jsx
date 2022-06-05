@@ -8,9 +8,7 @@ import Todo from "../../components/Todo/Todo"
 
 const Landing = ({ user }) => {
   let [todos, setTodos] = useState([{}])
-  let [newTodo, setNewTodo] = useState({})
-
-  console.log(newTodo)
+  let [newTodo, setNewTodo] = useState('')
 
   useEffect(() => {
     const fetchData = async() => {
